@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [randomDogImage, setRandomDogImage] = useState("");
 
-  // Fetch a random dog image from the API
+  // Fetch a random image from the API
   useEffect(() => {
     fetch("https://dog.ceo/api/breeds/image/random")
       .then((response) => response.json())
@@ -26,10 +26,10 @@ const Home = () => {
           WE ARE PAWSOME !
         </h1>
       </div>
-      {/* Semi-Circle */}
+      {/* Semi-Circle background */}
       <div className="absolute w-[100vw] md:w-[90vw] lg:w-[80vw] h-[100vw] md:h-[80vw] lg:h-[40vw] ease-in-out duration-300 p-2 bg-color-1 rounded-t-full bottom-0 opacity-80">
         <div className="flex flex-col items-center">
-          {/* Random dog image from the API */}
+          {/* fetched image from the API */}
           {randomDogImage && (
             <img
               src={randomDogImage}

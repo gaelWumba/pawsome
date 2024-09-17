@@ -7,7 +7,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  // Function to toggle menu
+  // Function to toggle the menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -22,7 +22,7 @@ const Header = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup event listener
+    // Clean event listener
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -83,7 +83,7 @@ const Header = () => {
             <li>
               <Link
                 to="/"
-                className={`block py-2 px-3 ${getLinkStyle("/")}`} // Highlight based on path
+                className={`block py-2 px-3 ${getLinkStyle("/")}`}
                 onClick={() => setIsOpen(false)}
               >
                 Home
@@ -92,7 +92,7 @@ const Header = () => {
             <li>
               <Link
                 to="/gallery"
-                className={`block py-2 px-3 ${getLinkStyle("/gallery")}`} // Highlight based on path
+                className={`block py-2 px-3 ${getLinkStyle("/gallery")}`}
                 onClick={() => setIsOpen(false)}
               >
                 Gallery
@@ -101,7 +101,7 @@ const Header = () => {
             <li>
               <Link
                 to="/search"
-                className={`block py-2 px-3 ${getLinkStyle("/search")}`} // Highlight based on path
+                className={`block py-2 px-3 ${getLinkStyle("/search")}`}
                 onClick={() => setIsOpen(false)}
               >
                 Search

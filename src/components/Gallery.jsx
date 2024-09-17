@@ -10,25 +10,30 @@ function Gallery() {
       .then((data) => setDogImages(data.message));
   };
 
-  // Fetch images on
   useEffect(() => {
     fetchDogImages();
   }, []);
 
   return (
-    <div className=" flex flex-col items-center justify-center bg-color-3 p-6">
-      <div className="text-center mb-10">
-        <p className="text-4xl text-color-1">
-          Meet a few of our pawsome friends!
+    <div className="flex flex-col items-center justify-center bg-color-1 p-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-2 text-center">
+        <p className="text-4xl font-bold text-gray-800 text-left p-10">
+          #PAWSOME
+        </p>
+        <p className="text-xl text-gray-600 max-w-2xl text-left p-10">
+          Meet some of our pawsome friends, a delightful group of furry
+          companions that are sure to bring a smile to your face. Each one of
+          them has their own unique personality, from playful pups who love to
+          chase after toys, to loyal dogs that offer unwavering companionship..
         </p>
       </div>
 
-      {/* Grid 2 rows x 3 columns */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-10">
+      {/* Grid 2 rows x 3 columns of images */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10 w-full max-w-7xl">
         {dogImages.map((image, index) => (
-          <div key={index} className="relative">
+          <div key={index} className="group">
             <img
-              className="w-full h-96 object-cover rounded-lg shadow-lg"
+              className="w-full h-72 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
               src={image}
               alt={`Dog ${index}`}
             />
@@ -36,12 +41,12 @@ function Gallery() {
         ))}
       </div>
 
-      {/* Refresh Button */}
+      {/* Refresh Button to load different images */}
       <button
-        className="px-2 py-3 bg-color-4 md:py-3 md:px-6 lg:py-3 lg:px-6 md:rounded-full lg:rounded-full text-white rounded-full shadow-md hover:bg-color-2 transition duration-300 fixed bottom-10 right-10 sm:relative sm:bottom-auto sm:right-auto"
+        className="px-4 py-2 bg-color-4 text-white rounded-full hover:bg-color-3 shadow-md transition duration-300"
         onClick={fetchDogImages}
       >
-        New
+        Load New Images
       </button>
     </div>
   );
