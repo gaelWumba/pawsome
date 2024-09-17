@@ -9,6 +9,7 @@ const App = () => {
   return (
     <div>
       <Header />
+      <div className="mt-24"></div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/gallery" element={<Gallery />} />

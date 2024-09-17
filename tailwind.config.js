@@ -8,8 +8,10 @@ export default {
       colors: {
         color: {
           1: "#AEECE7",
-          2: "#245A64",
-          3: "#2D3E43",
+          2: "#4CB8C4",
+          3: "#245A64",
+          4: "#2D3E43",
+          5: "#0e4061",
         },
       },
       fontFamily: {
