@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="fixed w-full z-20 top-0 start-0">
+    <nav className="fixed w-full z-20 top-0 start-0 bg-color-3 md:bg-transparent lg:bg-transparent">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3">
           <img src={pawsome} width={140} height={40} alt="Pawsome" />
