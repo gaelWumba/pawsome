@@ -1,5 +1,21 @@
-function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-}
+import { Routes, Route } from "react-router-dom";
+
+import Gallery from "./components/Gallery";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Search from "./components/Search";
+
+const App = () => {
+  return (
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/search" element={<Search />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default App;
