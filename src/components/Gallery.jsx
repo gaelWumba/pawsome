@@ -33,9 +33,9 @@ function Gallery() {
         {dogImages.map((image, index) => (
           <div key={index} className="group">
             <img
-              className="w-full h-72 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
               src={image}
               alt={`Dog ${index}`}
+              className="w-full h-72 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
             />
           </div>
         ))}

@@ -1,49 +1,218 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function Search() {
+const BreedSearch = () => {
+  const [breed, setBreed] = useState("");
+  const [breedImages, setBreedImages] = useState([]);
+  const [randomImages, setRandomImages] = useState([]);
+  const [breedsList, setBreedsList] = useState([]);
+  const [filteredBreeds, setFilteredBreeds] = useState([]);
+  const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 6;
+
+  // Fetch random dog images and breeds
+  useEffect(() => {
+    fetchRandomImages();
+    fetchBreedsList();
+  }, []);
+
+  const fetchRandomImages = () => {
+    fetch("https://dog.ceo/api/breeds/image/random/6")
+      .then((response) => response.json())
+      .then((data) => setRandomImages(data.message))
+      .catch(() => setError("Failed to load random images."));
+  };
+
+  const fetchBreedsList = () => {
+    fetch("https://dog.ceo/api/breeds/list/all")
+      .then((response) => response.json())
+      .then((data) => {
+        const breeds = Object.keys(data.message);
+        setBreedsList(breeds);
+      })
+      .catch(() => setError("Failed to load breeds list."));
+  };
+
+  const handleSearch = () => {
+    if (breed.trim() === "") {
+      setError("Please enter a valid breed name");
+      return;
+    }
+
+    fetch(`https://dog.ceo/api/breed/${breed.toLowerCase()}/images`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "error") {
+          setError("Breed not found. Please try again.");
+          setBreedImages([]);
+        } else {
+          setBreedImages(data.message);
+          setError("");
+          setCurrentPage(1);
+        }
+      })
+      .catch(() => {
+        setError("An error occurred. Please try again.");
+      });
+  };
+
+  // Filter breeds when the user types
+  const handleBreedChange = (e) => {
+    const searchTerm = e.target.value;
+    setBreed(searchTerm);
+
+    if (searchTerm.length > 0) {
+      const filtered = breedsList.filter((breed) =>
+        breed.toLowerCase().startsWith(searchTerm.toLowerCase())
+      );
+      setFilteredBreeds(filtered);
+    } else {
+      setFilteredBreeds([]);
+    }
+  };
+
+  const handleBreedSelect = (selectedBreed) => {
+    setBreed(selectedBreed);
+    setFilteredBreeds([]);
+  };
+
+  // Handle pagination
+  const totalPages = Math.ceil(breedImages.length / imagesPerPage);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Get the current set of images to display on the current page
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const currentImages = breedImages.slice(indexOfFirstImage, indexOfLastImage);
+
   return (
-    <div className="mt-24 bg-color-2 h-[32rem] p-10">
-      <section className=" mx-auto max-w-screen-xl pb-12 px-4 items-center lg:flex md:px-8">
-        {/* Left Side - Dog Image */}
-        <div className="flex-1 text-center mt-7 lg:mt-0 lg:mr-6">
-          <img src={woof} width={800} alt="Woof" />
-          {randomDogImage && (
-            <img
-              src={randomDogImage}
-              alt="Random Dog"
-              width={400}
-              height={100}
-              className="absolute w-1/4 h-auto top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg rounded-lg"
+    <div>
+      <div className="flex flex-col items-center justify-center bg-color-1 p-5">
+        <h1 className="text-md font-bold text-color-5">
+          Looking for a specific companion?
+        </h1>
+
+        {/* Search Input */}
+        <div>
+          <div>
+            <input
+              type="text"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded p-2 mt-4"
+              value={breed}
+              onChange={handleBreedChange}
+              placeholder="Enter breed"
             />
+            <button
+              className="bg-blue-500 text-white p-2 ml-2 rounded"
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+          </div>
+
+          {/* Dropdown Suggestions on the first letter typed */}
+          {filteredBreeds.length > 0 && (
+            <ul className="absolute z-10 bg-white border border-gray-300 w-full max-h-40 overflow-y-auto mt-1 rounded-md shadow-lg">
+              {filteredBreeds.map((suggestedBreed, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleBreedSelect(suggestedBreed)}
+                  className="cursor-pointer px-4 py-2 hover:bg-gray-200"
+                >
+                  {suggestedBreed}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
 
-        {/* Right Side - Content */}
-        <div className="space-y-4 flex-1 sm:text-center lg:text-left">
-          <h1 className="text-white font-bold text-4xl xl:text-5xl">
-            Paleo Ridge - Your Dog's Happy Place
-          </h1>
-          <p className="text-gray-300 max-w-xl leading-relaxed sm:mx-auto lg:ml-0">
-            Award-winning raw dog food designed for dogs, inspired by nature.
-          </p>
-          <div className="pt-10 items-center justify-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex lg:justify-start">
-            <a
-              href="javascript:void(0)"
-              className="px-7 py-3 w-full bg-white text-gray-800 text-center rounded-md shadow-md block sm:w-auto"
-            >
-              Shop Now
-            </a>
-            <a
-              href="javascript:void(0)"
-              className="px-7 py-3 w-full bg-gray-700 text-gray-200 text-center rounded-md block sm:w-auto"
-            >
-              Learn More
-            </a>
-          </div>
+        {/* Error Message when the input is empty or the's not match */}
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+
+        {/* Breed Images or Random Images Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+          {(breedImages.length === 0 ? randomImages : currentImages).map(
+            (image, index) => (
+              <div key={index} className="group">
+                <img
+                  src={image}
+                  alt={`Dog ${index}`}
+                  className="w-full h-96 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
+                />
+              </div>
+            )
+          )}
         </div>
-      </section>
+
+        {/* Pagination Controls */}
+        {breedImages.length > imagesPerPage && (
+          <div className="flex justify-center items-center space-x-4">
+            <button
+              className={`bg-color-1 text-black p-2 rounded ${
+                currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              <svg
+                className="w-2.5 h-2.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 1 1 5l4 4"
+                />
+              </svg>
+            </button>
+            <span className="text-lg font-normal">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className={`bg-color-1 text-black p-2 rounded ${
+                currentPage === totalPages
+                  ? "cursor-not-allowed opacity-50"
+                  : ""
+              }`}
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              <svg
+                className="w-2.5 h-2.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default Search;
+export default BreedSearch;
