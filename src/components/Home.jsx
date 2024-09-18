@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import treat from "../assets/treat.png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
