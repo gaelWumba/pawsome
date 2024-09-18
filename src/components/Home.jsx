@@ -14,18 +14,9 @@ const Home = () => {
 
   return (
     <div className="flex items-center justify-center text-center overflow-hidden">
-      <div className="">
-        <img
-          src={treat}
-          width={50}
-          height={40}
-          alt="treat"
-          className="absolute"
-        />
-        <h1 className="text-color-6 text-5xl md:text-6xl lg:text-8xl font-bold">
-          WE ARE PAWSOME !
-        </h1>
-      </div>
+      <h1 className="text-color-6 text-5xl md:text-6xl lg:text-8xl font-bold">
+        WE ARE PAWSOME !
+      </h1>
       {/* Semi-Circle background */}
       <div className="absolute w-[100vw] md:w-[90vw] lg:w-[80vw] h-[100vw] md:h-[80vw] lg:h-[40vw] ease-in-out duration-300 p-2 bg-color-6 rounded-t-full bottom-0 opacity-80">
         <div className="flex flex-col items-center">
