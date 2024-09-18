@@ -22,21 +22,20 @@ This project is a mini-website built with **ReactJS** and styled using **Tailwin
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) (version 12.x or higher)
-- [Git](https://git-scm.com/)
 
 ### Steps
 
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/dog-ceo-mini-site.git
-   cd dog-ceo-mini-site
+    git clone https://github.com/gaelWumba/pawsome
+    cd pawsome
 
    ```
 
 2. **Install Dependencies:**
 
    ```bash
-   npm install
-   npm run dev
+    npm install
+    npm run dev
    ```
