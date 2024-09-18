@@ -15,27 +15,23 @@ function Gallery() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-color-1 p-6">
-      <div className="grid md:grid-cols-2 lg:grid-cols-2 text-center">
-        <p className="text-4xl font-bold text-gray-800 text-left p-10">
-          #PAWSOME
-        </p>
-        <p className="text-xl text-gray-600 max-w-2xl text-left p-10">
-          Meet some of our pawsome friends, a delightful group of furry
-          companions that are sure to bring a smile to your face. Each one of
-          them has their own unique personality, from playful pups who love to
-          chase after toys, to loyal dogs that offer unwavering companionship..
+    <div className="flex flex-col items-center justify-center bg-color-6 p-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-2 text-center p-6">
+        <p className="text-2xl font-bold text-gray-800 text-left">#PAWSOME</p>
+        <p className="text-xl text-gray-600 max-w-2xl text-left">
+          Meet some of our pawsome friends, a group of companions that are sure
+          to bring a smile to your face.
         </p>
       </div>
 
       {/* Grid 2 rows x 3 columns of images */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10 w-full max-w-7xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-28 py-6">
         {dogImages.map((image, index) => (
           <div key={index} className="group">
             <img
               src={image}
               alt={`Dog ${index}`}
-              className="w-full h-72 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
+              className="w-full h-96 object-cover rounded-lg shadow-lg transition duration-300 transform group-hover:scale-105"
             />
           </div>
         ))}

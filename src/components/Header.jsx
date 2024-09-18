@@ -28,7 +28,7 @@ const Header = () => {
     };
   }, []);
 
-  // Function to determine active link
+  // Function to highlith active link
   const getLinkStyle = (path) => {
     return location.pathname === path
       ? "text-color-1 text-xl transition-all duration-300"

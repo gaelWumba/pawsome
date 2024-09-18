@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const BreedSearch = () => {
+const Search = () => {
   const [breed, setBreed] = useState("");
   const [breedImages, setBreedImages] = useState([]);
   const [randomImages, setRandomImages] = useState([]);
@@ -97,9 +97,9 @@ const BreedSearch = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center bg-color-1 p-5">
+      <div className="flex flex-col items-center justify-center bg-color-6 p-5">
         <h1 className="text-md font-bold text-color-5">
-          Looking for a specific companion?
+          Looking for a specific companion ?
         </h1>
 
         {/* Search Input */}
@@ -107,13 +107,13 @@ const BreedSearch = () => {
           <div>
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded p-2 mt-4"
+              className="bg-gray-50 border border-color-4 text-gray-900 text-sm rounded-full p-2 mt-4"
               value={breed}
               onChange={handleBreedChange}
               placeholder="Enter breed"
             />
             <button
-              className="bg-blue-500 text-white p-2 ml-2 rounded"
+              className="bg-color-4 text-white p-1.5 ml-1 rounded-full"
               onClick={handleSearch}
             >
               Search
@@ -122,7 +122,7 @@ const BreedSearch = () => {
 
           {/* Dropdown Suggestions on the first letter typed */}
           {filteredBreeds.length > 0 && (
-            <ul className="absolute z-10 bg-white border border-gray-300 w-full max-h-40 overflow-y-auto mt-1 rounded-md shadow-lg">
+            <ul className="absolute z-10 bg-white border border-gray-300 w-48 max-h-40 overflow-y-auto mt-1 rounded-md shadow-lg">
               {filteredBreeds.map((suggestedBreed, index) => (
                 <li
                   key={index}
@@ -136,11 +136,11 @@ const BreedSearch = () => {
           )}
         </div>
 
-        {/* Error Message when the input is empty or the's not match */}
+        {/* Error Message when the input is empty or there's not match */}
         {error && <p className="text-red-500 mt-4">{error}</p>}
 
         {/* Breed Images or Random Images Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-28 py-6">
           {(breedImages.length === 0 ? randomImages : currentImages).map(
             (image, index) => (
               <div key={index} className="group">
@@ -158,7 +158,7 @@ const BreedSearch = () => {
         {breedImages.length > imagesPerPage && (
           <div className="flex justify-center items-center space-x-4">
             <button
-              className={`bg-color-1 text-black p-2 rounded ${
+              className={`bg-color-4 text-color-6 p-2 rounded ${
                 currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
               }`}
               onClick={handlePreviousPage}
@@ -184,7 +184,7 @@ const BreedSearch = () => {
               Page {currentPage} of {totalPages}
             </span>
             <button
-              className={`bg-color-1 text-black p-2 rounded ${
+              className={`bg-color-4 text-color-6 p-2 rounded ${
                 currentPage === totalPages
                   ? "cursor-not-allowed opacity-50"
                   : ""
@@ -215,4 +215,4 @@ const BreedSearch = () => {
   );
 };
 
-export default BreedSearch;
+export default Search;

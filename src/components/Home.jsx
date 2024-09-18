@@ -22,12 +22,12 @@ const Home = () => {
           alt="treat"
           className="absolute"
         />
-        <h1 className="text-color-1 text-5xl md:text-6xl lg:text-8xl font-bold">
+        <h1 className="text-color-6 text-5xl md:text-6xl lg:text-8xl font-bold">
           WE ARE PAWSOME !
         </h1>
       </div>
       {/* Semi-Circle background */}
-      <div className="absolute w-[100vw] md:w-[90vw] lg:w-[80vw] h-[100vw] md:h-[80vw] lg:h-[40vw] ease-in-out duration-300 p-2 bg-color-1 rounded-t-full bottom-0 opacity-80">
+      <div className="absolute w-[100vw] md:w-[90vw] lg:w-[80vw] h-[100vw] md:h-[80vw] lg:h-[40vw] ease-in-out duration-300 p-2 bg-color-6 rounded-t-full bottom-0 opacity-80">
         <div className="flex flex-col items-center">
           {/* fetched image from the API */}
           {randomDogImage && (
